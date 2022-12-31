@@ -1,24 +1,12 @@
-# a-maze
+# 🔊a-maze DEMO 代码仓库
 
-## Project setup
-```
-npm install
-```
+## ✅A\*搜索的主要逻辑在
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- **_src/components/HelloWorld.vue_**文件中
+- 点击跳转:https://github.com/A164759920/A--maze/tree/main/src/components
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## ✅ 公网访问
 
-### Lints and fixes files
-```
-npm run lint
-```
+- https://sls-website-ap-nanjing-evpmzcc-1313270013.cos-website.ap-nanjing.myqcloud.com/
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## ✅ 博客地址

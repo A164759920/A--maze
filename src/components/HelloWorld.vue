@@ -5,7 +5,8 @@
       <p>①.在输入框中输入参数</p>
       <p> ---- 请用英文逗号分隔坐标</p>
       <p>②.点击保存参数</p>
-      <p>③.在右侧迷宫图中选择可走的【地图块】</p>
+      <p>③.在右侧迷宫图中选择</p>
+      <p style="text-indent:15px;">可走的【地图块】</p>
       <p>④.点击【寻找路径】</p>
       <p>⑤.查看结果</p>
       <p>⑥.点击【清除迷宫】清除当前迷宫图</p>
@@ -44,7 +45,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'HelloWorld',
   data: function () {
@@ -52,7 +52,7 @@ export default {
       rowNum: 1,
       colNum: 1,
       startInput: "0,0",
-      endInput: "4,4",
+      endInput: "0,0",
       startPoint: {
         rowIndex: 0,
         colIndex: 0,
@@ -62,7 +62,10 @@ export default {
       },
       endPoint: {
         rowIndex: 0,
-        colIndex: 0
+        colIndex: 0,
+        lastOperation: "",
+        deep: 0,
+        fn: 0,
       },
       mazeArray: [
       ]
@@ -130,6 +133,7 @@ export default {
         // 设置起点/终点样式
         this.$set(this.mazeArray[this.startPoint.rowIndex], this.startPoint.colIndex, 3)
         this.$set(this.mazeArray[this.endPoint.rowIndex], this.endPoint.colIndex, 3)
+        console.log("最终closed表", closedList)
         // TODO：溯源需要修改
         let Father = closedList.pop().father
         while (Father.deep >= 1) {
@@ -258,10 +262,10 @@ export default {
               colIndex: nextPoint.colIndex,
               lastOperation: operation,
               deep: currentPoint.deep + 1,
-              fn: that.computed_MHT_Distance(nextPoint.rowIndex, nextPoint.colIndex),
+              fn: currentPoint.deep + 1 + that.computed_MHT_Distance(nextPoint.rowIndex, nextPoint.colIndex),
               father: fatherPoint
             }
-            // console.log("open表·元素", openlistObj)
+            console.log(`第${count}次open表.元素`, openlistObj)
             openList.push(openlistObj)
           })
           // 更新closed表
@@ -269,6 +273,7 @@ export default {
           // 更新open表
           openList.shift()
           openList.sort(that.sortBy("fn"))
+          // 打印open表和closed表
           count = count + 1
         }
       }
@@ -289,15 +294,15 @@ export default {
     position: fixed;
     top: 50px;
     left: 20px;
-    width: 300px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     padding: 5px;
     background-color: whitesmoke;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
     .tip-title {
       margin-bottom: 5px;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 550;
       font-family: Arial, Helvetica, sans-serif;
       color: #03A9F4;
@@ -306,6 +311,7 @@ export default {
     p {
       height: 25px;
       line-height: 25px;
+      font-size: 14px;
       font-family: Arial, Helvetica, sans-serif;
     }
   }
