@@ -133,8 +133,6 @@ export default {
         // 设置起点/终点样式
         this.$set(this.mazeArray[this.startPoint.rowIndex], this.startPoint.colIndex, 3)
         this.$set(this.mazeArray[this.endPoint.rowIndex], this.endPoint.colIndex, 3)
-        console.log("最终closed表", closedList)
-        // TODO：溯源需要修改
         let Father = closedList.pop().father
         while (Father.deep >= 1) {
           this.$set(this.mazeArray[Father.rowIndex], Father.colIndex, 2)
@@ -265,7 +263,6 @@ export default {
               fn: currentPoint.deep + 1 + that.computed_MHT_Distance(nextPoint.rowIndex, nextPoint.colIndex),
               father: fatherPoint
             }
-            console.log(`第${count}次open表.元素`, openlistObj)
             openList.push(openlistObj)
           })
           // 更新closed表
